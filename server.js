@@ -3,13 +3,18 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config(); // Load environment variables
 const { GoogleGenerativeAI } = require('@google/generative-ai'); // Import the library
-const Job = require('./models/Job');
+const Job = require('./models/job');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// Configure CORS to allow requests from your Netlify domain
+const corsOptions = {
+  origin: 'https://ai-job-aggregator-app.netlify.app',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Initialize the AI model
